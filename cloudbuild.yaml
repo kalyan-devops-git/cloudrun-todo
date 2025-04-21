@@ -11,13 +11,18 @@ steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
-      [
-        'run', 'deploy', 'cloudrun-todo',
-        '--image', 'docker.io/kalyan0103/getting-started:v1',
-        '--region', 'us-central1',
-        '--platform', 'managed',
-        '--allow-unauthenticated'
-      ]
+      - 'run'
+      - 'deploy'
+      - 'cloudrun-todo'
+      - '--image'
+      - 'docker.io/kalyan0103/getting-started:v1'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--timeout'
+      - '300s'  # Increase timeout to 5 minutes (adjust based on app behavior)
 
 options:
   logging: CLOUD_LOGGING_ONLY
