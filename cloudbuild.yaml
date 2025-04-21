@@ -8,20 +8,16 @@ steps:
         # Add your custom commands here
         # Example: python3 app.py or node index.js
 
-# Optional: Uncomment below to deploy to Cloud Run (requires Cloud Run service + region configured)
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args:
-#     [
-#       'run', 'deploy', 'cloudrun-todo',
-#       '--image', 'gcr.io/$PROJECT_ID/cloudrun-todo',
-#       '--region', 'us-central1',
-#       '--platform', 'managed',
-#       '--allow-unauthenticated'
-#     ]
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'cloudrun-todo',
+        '--image', 'docker.io/kalyan0103/getting-started:v1',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated'
+      ]
 
-# (Optional) Artifacts to be pushed, only needed if you're building something
-# images:
-#   - 'gcr.io/$PROJECT_ID/cloudrun-todo'
 options:
   logging: CLOUD_LOGGING_ONLY
