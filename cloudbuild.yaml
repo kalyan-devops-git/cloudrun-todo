@@ -23,3 +23,5 @@ steps:
 # (Optional) Artifacts to be pushed, only needed if you're building something
 # images:
 #   - 'gcr.io/$PROJECT_ID/cloudrun-todo'
+options:
+  logging: CLOUD_LOGGING_ONLY
