@@ -1,6 +1,6 @@
 substitutions:
   _REGION: us-central1
-  _IMAGE: us-central1-docker.pkg.dev/your-project/artifact-repo/getting-started:v1
+  _IMAGE: us-central1-docker.pkg.dev/kalyan-devops-2025/artifact-repo/getting-started:v1
   _SERVICE_NAME: cloudrun-todo
 
 steps:
