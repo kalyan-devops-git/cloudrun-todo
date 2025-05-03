@@ -1,17 +1,24 @@
 substitutions:
   _REGION: us-central1
-  _IMAGE: us-central1-docker.pkg.dev/kalyan-devops-2025/artifact-repo/getting-started:v1
+  _REPO: artifact-repo
+  _IMAGE_NAME: getting-started
   _SERVICE_NAME: cloudrun-todo
+  _PROJECT_ID: kalyan-devops-2025
 
 steps:
-  # Optional test or pre-deploy step
-  - name: '${_IMAGE}'
-    entrypoint: sh
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
     args:
-      - -c
-      - |
-        echo "✅ Running container from image: ${_IMAGE}"
-        # Optional: Add test/lint/build steps here
+      - build
+      - '-t'
+      - 'us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE_NAME}:latest'
+      - '.'
+
+  # Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - 'us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE_NAME}:latest'
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -20,14 +27,14 @@ steps:
       - run
       - deploy
       - '${_SERVICE_NAME}'
-      - --image
-      - '${_IMAGE}'
-      - --region
+      - '--image'
+      - 'us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_IMAGE_NAME}:latest'
+      - '--region'
       - '${_REGION}'
-      - --platform
+      - '--platform'
       - managed
-      - --allow-unauthenticated
-      - --timeout
+      - '--allow-unauthenticated'
+      - '--timeout'
       - 300s
 
 options:
